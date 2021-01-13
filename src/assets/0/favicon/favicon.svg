@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icons/favicon-everything</title>
+    <g id="Icons/favicon-everything" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,8 C0,3.5817512 3.58175121,-7.10542736e-15 8,-7.10542736e-15 C12.4182488,-7.10542736e-15 16,3.5817512 16,8 L0,8 Z" id="Path" fill="#212446"></path>
+        <path d="M14,8 C14,4.68618065 11.3138193,2 8,2 C4.68618064,2 2,4.68618065 2,8 C2,11.3138193 4.68618064,14 8,14 C11.3138193,14 14,11.3138193 14,8 Z" id="Path" fill="#FB7268" opacity="0.5"></path>
+        <path d="M2,8 C2,4.68618064 4.68607526,2 7.99976459,2 C11.313454,2 14,4.68618064 14,8 L2,8 Z" id="Path" fill="#FB7268"></path>
+    </g>
+</svg>

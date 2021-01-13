@@ -1,13 +1,178 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>InsuranceApp</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=DM+Serif+Text&display=swap" rel="stylesheet" />
+
+  <!-- All quote related CSS -->
+
+  <link rel="icon" type="image/svg+xml" href="assets/0/favicon/favicon.svg" />
+
+  <title>Everything Insure</title>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
-<body>
+
+<body class="page page--central">
+  <div id="svgContainer" style="display:none;"></div>
+  <script defer>
+    xhrMono = new XMLHttpRequest();
+    xhrMono.open("GET", "assets/icn/sprite.svg", true);
+    xhrMono.onload = function (e) {
+      document.getElementById("svgContainer")
+        .appendChild(xhrMono.responseXML.documentElement)
+    }
+    xhrMono.send(null);
+  </script>
   <app-root></app-root>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.min.js"></script>
+  <script src="./src/js/jquery-ui-custom.min.js"></script>
+  <script src="./src/js/stickyfill.min.js"></script>
+  <script src="./src/js/slick.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous"></script>
+  <script src="./src/js/wNumb.min.js"></script>
+  <script src="./src/js/nouislider.min.js"></script>
+  <script src="./src/js/jquery.mask.min.js"></script>
+  <script src="./src/js/placeholder-shown-polyfill.min.js"></script>
+  <script src="./src/js/common.js"></script>
+  <script src="./src/js/central.js"></script>
+  <script>
+    $(document).ready(function () {
+
+
+      function initPolicyNav() {
+
+        var $policyNav = $('#policies-nav');
+        var $policyTabs = $('#policies-all');
+        var $policiesGetMore = $('#policies-getmore');
+        var $policiesUnsure = $('#policies-unsure');
+
+        // select category from nav
+        $policyNav.off('click').on('click', 'li a', function (e) {
+          e.preventDefault();
+          var $trigger = $(this);
+          var targetCat = $trigger.data('category');
+
+          // highlight nav
+          $trigger
+            .closest('li').addClass('is-active')
+            .siblings('li').removeClass('is-active');
+
+          // activate all tabs
+          if (targetCat === 'all') {
+            $policyTabs.find('.policy-card').removeClass('is-active');
+            $policyTabs.removeClass('is-all');
+
+            // trigger css animation
+            setTimeout(function () {
+              $policyTabs.find('.policy-card:not(.policy-card--empty)').addClass('is-active');
+              $policyTabs.addClass('is-all');
+            }, 1);
+
+            $policiesGetMore.addClass('is-active');
+            $policiesUnsure.removeClass('is-active');
+
+
+            // activate tab and hide others
+          } else {
+            $policyTabs.find('.policy-card').removeClass('is-active');
+            $policyTabs.removeClass('is-all');
+
+            $policyTabs.find('.policy-card[data-category=' + targetCat + ']').each(function () {
+              var $card = $(this);
+
+              // trigger css animation
+              setTimeout(function () {
+                $card.addClass('is-active');
+              }, 1);
+
+              // show/hide 'get more' cover slider or 'unsure' message
+              if ($card.hasClass('policy-card--empty')) {
+                $policiesGetMore.removeClass('is-active');
+                $policiesUnsure.addClass('is-active');
+              } else {
+                $policiesGetMore.addClass('is-active');
+                $policiesUnsure.removeClass('is-active');
+              }
+
+            });
+
+          }
+
+        });
+
+
+      }
+
+
+      function initProductSlider() {
+        $('#product-slider').slick({
+          dots: true,
+          infinite: false,
+          speed: 300,
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          swipeToSlide: true,
+          prevArrow: '<button type="button" class="slick-prev"><svg class="icon"><use xlink:href="#right-small"></use></svg></button>',
+          nextArrow: '<button type="button" class="slick-next"><svg class="icon"><use xlink:href="#right-small"></use></svg></button>',
+          rows: 0,
+          responsive: [
+            {
+              breakpoint: 767,
+              settings: {
+                arrows: false,
+                variableWidth: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            },
+            {
+              breakpoint: 1399,
+              settings: {
+                slidesToShow: 2
+              }
+            },
+            {
+              breakpoint: 1599,
+              settings: {
+                slidesToShow: 3
+              }
+            }
+          ]
+        });
+      }
+      $(function () {
+        initPolicyNav();
+        initProductSlider();
+      });
+    })
+
+
+  </script>
 </body>
+
 </html>

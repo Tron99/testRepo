@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "insurance-app"
+  "defaultProject": "insurance-app",
+  "cli": {
+    "defaultCollection": "@nativescript/schematics"
+  }
 }
